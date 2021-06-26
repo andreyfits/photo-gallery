@@ -1,0 +1,14 @@
+.galery_wrap {
+    width: 630px;
+    margin: 0 auto;
+}
+
+.galery_wrap img {
+    display: block;
+    float: left;
+    margin-bottom: 10px;
+}
+
+.galery_clear {
+    clear: both;
+}

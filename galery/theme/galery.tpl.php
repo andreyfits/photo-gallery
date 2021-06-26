@@ -1,14 +1,15 @@
 <div class="galery_wrap">
-
-    <?php foreach ($images as $key => $item) : ?>
-
-        <?php if ($key < 2) : ?>
-            <img src="<?php echo G_SITE . G_IMG_MEDIUM . $item['path_images']; ?>">
-        <? else : ?>
-            <img src="<?php echo G_SITE . G_IMG_SMALL . $item['path_images']; ?>">
-        <?php endif; ?>
-
+    <?php $i = 0; ?>
+    <?php foreach ($rows as $row) : ?>
+        <div class="line">
+            <?php foreach ($row as $item) : ?>
+                <img style="height: <?php echo $row_height[$i]; ?>px" src="<?php echo G_SITE . G_IMG_MEDIUM . $item['path_images']; ?>">
+            <?php endforeach; ?>
+        </div>
+        <?php $i++; ?>
     <?php endforeach; ?>
+
+    <div class="galery_clear"></div>
 
     <?php if ($comments): ?>
 

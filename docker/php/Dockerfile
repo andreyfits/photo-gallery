@@ -4,12 +4,15 @@ ARG PROJECT_FILES
 
 RUN apt-get update && apt-get install -y \
         libcurl4-openssl-dev \
+        libfreetype6-dev \
+        libjpeg-dev \
         libzip-dev \
         unzip \
         git \
         netcat
 
-RUN docker-php-ext-install pdo pdo_mysql curl zip mysqli \
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo pdo_mysql gd curl zip mysqli \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug
 
