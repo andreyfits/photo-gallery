@@ -11,7 +11,7 @@ function render_galery($id_galery)
         ///
 
         $simg = $images;
-        $count = count($images);
+        $count = count($simg);
 
         $rows = [];
         $imgs = true;
@@ -60,22 +60,40 @@ function render_galery($id_galery)
             foreach ($width as $key => $val) {
                 $width[$key] = floor($val * min($height) / $height[$key]);
             }
+
             $rh = floor(min($height) * G_ROW_WIDTH / array_sum($width));
 
             $width1 = [];
-            foreach ($width as $val) {
+
+            foreach ($width as $key => $val) {
                 $width1[] = floor($val * $rh / min($height));
             }
 
             $width_img[] = $width1;
-
             $row_height[] = $rh;
-
         }
 
+
         ///
+
         ob_start();
         require_once G_PATH . '/theme/' . "galery.tpl.php";
         return ob_get_clean();
+    }
+}
+
+function render_image($id_image, $id_galery)
+{
+    if ($id_image && $id_galery) {
+        $image = get_image($id_image, $id_galery);
+
+        $arr = array();
+        foreach ($image as $key => $item) {
+            if ($item['id_images'] == $id_image) {
+                $item['path_images'] = G_SITE . G_IMG_LARGE . $item['path_images'];
+                $arr = $item;
+            }
+        }
+        return $arr;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-function get_statti($cat = FALSE): array
+function get_statti($cat = false): array
 {
     global $db;
     $sql = "SELECT id,title,date,img_src,discription,id_galery FROM statti";
@@ -18,7 +18,8 @@ function get_statti($cat = FALSE): array
         exit('Статей нет');
     }
 
-    $row = array();
+    $row = [];
+
     for ($i = 0; $i < mysqli_num_rows($result); $i++) {
         $row[] = mysqli_fetch_array($result, MYSQLI_ASSOC);
     }
@@ -41,7 +42,7 @@ function get_text($id)
         exit('Статей нет');
     }
 
-    $row = array();
+    $row = [];
 
     for ($i = 0; $i < mysqli_num_rows($result); $i++) {
         $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
@@ -64,7 +65,7 @@ function get_cat(): array
         exit('Статей нет');
     }
 
-    $row = array();
+    $row = [];
 
     for ($i = 0; $i < mysqli_num_rows($result); $i++) {
         $row[] = mysqli_fetch_array($result, MYSQLI_ASSOC);

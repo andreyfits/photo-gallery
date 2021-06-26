@@ -1,4 +1,29 @@
+function showImages(idImg, idGalery) {
+
+    $(".galery_view_bg, .galery_view_img").css({'display': 'block'});
+
+
+    $.ajax({
+
+        url: path + 'galery.php',
+        data: 'id_image=' + idImg + '&id_galery=' + idGalery,
+        type: 'POST',
+        dataType: 'json',
+        success: function (html) {
+            $(".galery_view_img").append('<div style="width:900px;margin:20px auto 0px auto"><img src="' + html['path_images'] + '"></div>');
+        }
+
+    });
+}
+
+
 $(document).ready(function () {
+
+    var w_b = $(window).width();
+    var h_b = $(window).height();
+
+    $(".galery_view_bg, .galery_view_img").css({'width': w_b, 'height': h_b});
+
     var width_wrap = $(".galery_wrap").width();
 
     $(".line").each(function () {

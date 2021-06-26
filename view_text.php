@@ -2,10 +2,9 @@
 
 header("Content-Type:text/html;charset=UTF8");
 //подключаем файл конфигурации
-include 'config.php';
-include 'functions.php';
+require_once 'config.php';
+require_once 'functions.php';
 
-//print_r($_POST);
 if ($_GET['id']) {
     $id = (int)$_GET['id'];
     $result = get_text($id);
