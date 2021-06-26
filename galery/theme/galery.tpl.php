@@ -2,8 +2,8 @@
     <?php $i = 0; ?>
     <?php foreach ($rows as $row) : ?>
         <div class="line">
-            <?php foreach ($row as $item) : ?>
-                <img style="height: <?php echo $row_height[$i]; ?>px" src="<?php echo G_SITE . G_IMG_MEDIUM . $item['path_images']; ?>">
+            <?php foreach ($row as $k => $item) : ?>
+                <img style="height: <?php echo $row_height[$i]; ?>px; width:<?php echo $width_img[$i][$k]; ?>px" src="<?php echo G_SITE . G_IMG_MEDIUM . $item['path_images']; ?>">
             <?php endforeach; ?>
         </div>
         <?php $i++; ?>

@@ -17,11 +17,10 @@ function render_galery($id_galery)
         $imgs = true;
         $i = 0;
 
-        if ($count > 9 ) {
+        if ($count > 15) {
             $rows[0] = array_splice($simg, 0, 2);
             $rows[1] = array_splice($simg, 0, 8);
-        }
-        else {
+        } else {
             while ($imgs) {
                 $rowLimit = G_ROW_IMG;
 
@@ -61,7 +60,17 @@ function render_galery($id_galery)
             foreach ($width as $key => $val) {
                 $width[$key] = floor($val * min($height) / $height[$key]);
             }
-            $row_height[] = floor(min($height) * G_ROW_WIDTH / array_sum($width));
+            $rh = floor(min($height) * G_ROW_WIDTH / array_sum($width));
+
+            $width1 = [];
+            foreach ($width as $val) {
+                $width1[] = floor($val * $rh / min($height));
+            }
+
+            $width_img[] = $width1;
+
+            $row_height[] = $rh;
+
         }
 
         ///
