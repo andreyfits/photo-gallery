@@ -4,13 +4,13 @@ function showImages(idImg, idGalery) {
 
 
     $.ajax({
-
         url: path + 'galery.php',
         data: 'id_image=' + idImg + '&id_galery=' + idGalery,
         type: 'POST',
         dataType: 'json',
         success: function (html) {
-            $(".galery_view_img").append('<div style="width:900px;margin:20px auto 0px auto"><img src="' + html['path_images'] + '"></div>');
+            $(".galery_view_img").empty();
+            $(".galery_view_img").append(html);
         }
 
     });

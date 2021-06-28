@@ -60,7 +60,7 @@
 								
 							</p></td>
 				            </tr><tr><td>
-							<p>Просмотров: <?php echo $row['view']; ?> </p>
+							<p>Просмотров: <?php echo @$row['view']; ?> </p>
 							</td></tr></table>
 				<? endforeach ;?>
 			</div>
@@ -68,8 +68,7 @@
 		</div>
 		
 		<div class='footer'>
-			
-			<? echo "<p style='text-align:right;font_size:5px; color:white;margin:10px;'>".$site_name."</p>";?>
+			<? echo "<p style='text-align:right;font_size:5px; color:white;margin:10px;'>".@$site_name."</p>";?>
 		</div>
 	</div>
 </body>

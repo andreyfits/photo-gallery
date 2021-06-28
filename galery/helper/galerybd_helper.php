@@ -20,7 +20,7 @@ function get_result($result, $db)
     }
 
     if (mysqli_num_rows($result) < 1) {
-        return FALSE;
+        return false;
     }
 
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -46,7 +46,7 @@ function get_comments($id_galery = FALSE, $id_images = FALSE, $limit = FALSE)
 {
     global $db;
 
-    $sql = "SELECT text_comments, name_author, email_author
+    $sql = "SELECT id_comments,text_comments, name_author, email_author,time,parent_id
 			FROM comments ";
     if ($id_galery) {
         $sql .= " WHERE id_galery ='$id_galery'";

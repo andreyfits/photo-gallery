@@ -10,22 +10,11 @@
         <?php $i++; ?>
     <?php endforeach; ?>
     <div class="galery_clear"></div>
-    <?php if ($comments): ?>
 
-
-        <h2>Комментарии</h2>
-        <?php foreach ($comments as $com) : ?>
-            <div class="galery_com_single">
-                <p><?php echo $com['name_author']; ?></p>
-                <p><?php echo $com['text_comments']; ?></p>
-            </div>
-        <?php endforeach; ?>
-    <?php else : ?>
-        <form>
-            <input type="text">
-            <textarea></textarea>
-        </form>
-    <?php endif; ?>
+    <h2>Комментарии</h2>
+    <div class="galery_comments">
+        <?php echo $comments; ?>
+    </div>
 
     <div class="galery_view_bg"></div>
 

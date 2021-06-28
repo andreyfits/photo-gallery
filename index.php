@@ -11,4 +11,4 @@ $statti = get_statti(false);
 $cat = get_cat();
 
 
-echo render('index', array('statti' => $statti, 'cat' => $cat, 'galery' => $galery));
+echo render('index', array('statti' => $statti, 'cat' => $cat, 'galery' => @$galery));

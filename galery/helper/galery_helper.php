@@ -1,6 +1,21 @@
 <?php
 
-require_once "galerybd_helper.php";
+require "galerybd_helper.php";
+
+function tmpl($var = array(), $tmp)
+{
+    extract($var);
+
+    $path = G_PATH . "/theme/" . $tmp . ".tpl.php";
+    if (file_exists($path)) {
+
+        ob_start();
+        require $path;
+        return ob_get_clean();
+    }
+
+    exit();
+}
 
 function render_galery($id_galery)
 {
@@ -8,12 +23,13 @@ function render_galery($id_galery)
         $images = get_images($id_galery);
         $comments = get_comments($id_galery);
 
-        ///
+        ////
 
         $simg = $images;
         $count = count($simg);
 
-        $rows = [];
+
+        $rows = array();
         $imgs = true;
         $i = 0;
 
@@ -46,6 +62,7 @@ function render_galery($id_galery)
             }
         }
 
+
         foreach ($rows as $row) {
             $width = [];
             $height = [];
@@ -75,10 +92,16 @@ function render_galery($id_galery)
 
 
         ///
+        $comments_str = tmpl(['comments' => $comments], 'galery_com_single');
+        $comments_tmp = tmpl(['comments_str' => $comments_str], 'galery_com');
 
-        ob_start();
-        require_once G_PATH . '/theme/' . "galery.tpl.php";
-        return ob_get_clean();
+        return tmpl([
+            'comments' => $comments_tmp,
+            'row_height' => $row_height,
+            'width_img' => $width_img,
+            'rows' => $rows,
+            'id_galery' => $id_galery
+        ], 'galery');
     }
 }
 
@@ -91,9 +114,31 @@ function render_image($id_image, $id_galery)
         foreach ($image as $key => $item) {
             if ($item['id_images'] == $id_image) {
                 $item['path_images'] = G_SITE . G_IMG_LARGE . $item['path_images'];
-                $arr = $item;
+                $arr['img'] = $item;
+                $arr['pos'] = $key + 1;
+
+                if ($key == count($image) - 1) {
+                    $arr['next'] = $image[0]['id_images'];
+                } else {
+                    $arr['next'] = $image[$key + 1]['id_images'];
+                }
+
+                $arr['back'] = ($key == 0) ? $image[count($image) - 1]['id_images'] : $image[$key - 1]['id_images'];
+
+                $arr['summ'] = count($image);
+                $arr['gal'] = $id_galery;
+
             }
         }
-        return $arr;
+
+        $comments = get_comments(false, $id_image);
+
+        $comments_str = tmpl(['comments' => $comments], 'galery_com_single');
+        $arr['comments'] = tmpl(['comments_str' => $comments_str], 'galery_com');
+
+        return tmpl([
+            'arr' => $arr,
+        ], 'galery_image');
+
     }
 }

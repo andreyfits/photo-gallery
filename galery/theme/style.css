@@ -1,9 +1,9 @@
 .galery_wrap {
     width: 630px;
-    margin: 0 auto;
+    margin: 0px auto;
 }
 
-.galery_wrap img {
+.line img {
     display: block;
     float: left;
     margin-bottom: 10px;
@@ -13,13 +13,69 @@
     clear: both;
 }
 
+img {
+    margin-right: 0;
+    padding: 0;
+}
+
+
+.galery_m img {
+    width: 280px;
+    margin: 0;
+    display: block;
+    float: left;
+}
+
+.galery_s {
+    margin-top: 5px;
+}
+
+.galery_s img {
+    width: 90px;
+    margin-right: 5px;
+    display: block;
+    float: left;
+}
+
+.galery_clear {
+    clear: both;
+}
+
 .galery_view_img {
     position: fixed;
     overflow: auto;
-    top: 0;
     left: 0;
-    z-index: 200;
+    top: 0;
+    z-index: 500;
     display: none;
+}
+
+.galery_img > p {
+    margin-left: 20px;
+}
+
+.galery_img {
+    z-index: 800;
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
+.galery_img_wrap {
+    background-color: white;
+    opacity: 1;
+    margin: 10px auto 0 auto;
+    width: 840px;
+    padding-top: 20px;
+}
+
+.galery_img p {
+
+    text-align: left;
+}
+
+.galery_img img {
+
 }
 
 .galery_view_bg {
@@ -30,4 +86,79 @@
     position: fixed;
     top: 0;
     left: 0;
+}
+
+.galery_back_img, .galery_close_img {
+
+    cursor: pointer;
+    height: 17px;
+    opacity: 0.4;
+    top: 25px;
+    width: 17px;
+    display: block;
+
+    opacity: 0.4;
+    position: absolute;
+    z-index: 110;
+
+}
+
+.galery_back_img {
+    left: 20px;
+    background: url("images/control.png") no-repeat;
+    background-position: 0 0;
+}
+
+.galery_close_img {
+    right: 20px;
+    background: url("images/control.png") no-repeat;
+    background-position: 0 -19px;
+}
+
+.galery_img_comments_wrap {
+    padding: 20px;
+}
+
+.galery_wrap h2 {
+    background: none repeat scroll 0 0 #E9EDF1;
+    color: #0d0d0d;
+    display: block;
+    font-size: 1.3em;
+    font-weight: 100;
+    padding: 5px 0 5px 0;
+}
+
+.galery_com_name {
+    color: #2B587A;
+    font-size: 0.9em;
+    margin-bottom: 0;
+}
+
+.galery_com_single {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+
+.galery_wrap label {
+    margin-top: 5px;
+}
+
+.galery_com_new {
+    font-size: 0.9em;
+    margin: 20px 0 10px 0;
+}
+
+.galery_com_date {
+    color: gray;
+    font-size: 0.7em;
+}
+
+.galery_reply {
+    font-size: 0.7em;
+    color: #0080c0;
+    cursor: pointer;
+}
+
+.galery_image_text {
+    margin: 20px 0 0 0;
 }

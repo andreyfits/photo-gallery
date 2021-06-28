@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Июл 28 2014 г., 13:23
+-- Время создания: Сен 25 2014 г., 04:06
 -- Версия сервера: 5.5.25
 -- Версия PHP: 5.3.13
 
@@ -55,6 +55,8 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `email_author` varchar(255) NOT NULL,
   `id_galery` tinyint(4) NOT NULL DEFAULT '0',
   `id_images` tinyint(4) NOT NULL DEFAULT '0',
+  `time` int(11) DEFAULT NULL,
+  `parent_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_comments`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
@@ -62,9 +64,9 @@ CREATE TABLE IF NOT EXISTS `comments` (
 -- Дамп данных таблицы `comments`
 --
 
-INSERT INTO `comments` (`id_comments`, `text_comments`, `name_author`, `email_author`, `id_galery`, `id_images`) VALUES
-(1, 'Всем привет!', 'Виктор', 'admin@mail.ru', 1, 0),
-(2, 'Всем привет это изображение!', 'Виктор', 'admin@mail.ru', 0, 1);
+INSERT INTO `comments` (`id_comments`, `text_comments`, `name_author`, `email_author`, `id_galery`, `id_images`, `time`, `parent_id`) VALUES
+(1, 'Всем привет!', 'Виктор', 'admin@mail.ru', 1, 0, NULL, 0),
+(2, 'Всем привет это изображение!', 'Виктор', 'admin@mail.ru', 0, 1, NULL, 0);
 
 -- --------------------------------------------------------
 
