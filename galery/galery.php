@@ -2,6 +2,12 @@
 require_once "g_config.php";
 require_once G_HELPER . "galery_helper.php";
 
+if (@$_POST['act']) {
+    //$comments = send_comments($_POST);
+    //print_r($_POST);
+    //exit();
+}
+
 if (@$_POST['id_image'] && $_POST['id_galery']) {
     $id_image = (int)$_POST['id_image'];
     $id_galery = (int)$_POST['id_galery'];

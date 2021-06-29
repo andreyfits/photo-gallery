@@ -2,7 +2,7 @@
 
 require "galerybd_helper.php";
 
-function tmpl($var = array(), $tmp)
+function tmpl($var = [], $tmp)
 {
     extract($var);
 
@@ -29,7 +29,7 @@ function render_galery($id_galery)
         $count = count($simg);
 
 
-        $rows = array();
+        $rows = [];
         $imgs = true;
         $i = 0;
 
@@ -93,7 +93,7 @@ function render_galery($id_galery)
 
         ///
         $comments_str = tmpl(['comments' => $comments], 'galery_com_single');
-        $comments_tmp = tmpl(['comments_str' => $comments_str], 'galery_com');
+        $comments_tmp = tmpl(['comments_str' => $comments_str, 'id_galery' => $id_galery, 'act' => 'gal'], 'galery_com');
 
         return tmpl([
             'comments' => $comments_tmp,
@@ -110,7 +110,8 @@ function render_image($id_image, $id_galery)
     if ($id_image && $id_galery) {
         $image = get_image($id_image, $id_galery);
 
-        $arr = array();
+        $arr = [];
+
         foreach ($image as $key => $item) {
             if ($item['id_images'] == $id_image) {
                 $item['path_images'] = G_SITE . G_IMG_LARGE . $item['path_images'];
@@ -134,7 +135,7 @@ function render_image($id_image, $id_galery)
         $comments = get_comments(false, $id_image);
 
         $comments_str = tmpl(['comments' => $comments], 'galery_com_single');
-        $arr['comments'] = tmpl(['comments_str' => $comments_str], 'galery_com');
+        $arr['comments'] = tmpl(['comments_str' => $comments_str, 'id_galery' => $id_galery, 'id_image' => $id_image, 'act' => 'image'], 'galery_com');
 
         return tmpl([
             'arr' => $arr,

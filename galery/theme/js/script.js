@@ -19,6 +19,44 @@ function showImages(idImg, idGalery) {
 
 $(document).ready(function () {
 
+    $(".galery_view_img").on('click', '.galery_close_img', function () {
+        $(".galery_view_img").empty();
+        $(".galery_view_bg, .galery_view_img").css({'display': 'none'});
+        $("body").css({'overflow': auto});
+
+    });
+
+
+    $(".galery_wrap").on('click', ".galery_reply", function () {
+        var h = $(this).parents('.galery_com_single');
+
+        var form = h.parent().find('form');
+
+        var name = h.children('.galery_com_name').text() + ", ";
+
+        var id = h.attr('id');
+
+        form.children('textarea').val(name).focus();
+
+        form.children('input[name=parent_id]').val(id);
+    });
+
+
+    $(".galery_wrap").on('click', '#send_comment', function () {
+
+        var r = $(this).parent('form');
+        var mydata = r.serializeArray();
+
+        $.ajax({
+            url: path + 'galery.php',
+            data: mydata,
+            type: 'POST',
+            success: function (html) {
+
+            }
+        });
+    });
+
     var w_b = $(window).width();
     var h_b = $(window).height();
 

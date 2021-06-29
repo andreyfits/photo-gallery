@@ -8,10 +8,10 @@
     Имя:<br/>
     <input size="50" type="text" name="name_author">
 
-    <input type="hidden" name="id_image" value="">
-    <input type="hidden" name="id_galery" value="">
+    <input type="hidden" name="id_image" value="<?php echo @$id_image; ?>">
+    <input type="hidden" name="id_galery" value="<?php echo $id_galery; ?>">
     <input type="hidden" name="parent_id" value="">
-    <input type="hidden" name="act" value="">
+    <input type="hidden" name="act" value="<?php echo $act; ?>">
     <br/>Текст:<br/>
     <textarea cols="50" rows="5" name="text_comments"></textarea><br/><br/>
 
