@@ -1,19 +1,19 @@
 <?php
 
-require "galerybd_helper.php";
+require_once "galerybd_helper.php";
 
 function tmpl($var = [], $tmp)
 {
     extract($var);
 
     $path = G_PATH . "/theme/" . $tmp . ".tpl.php";
+
     if (file_exists($path)) {
 
         ob_start();
-        require $path;
+        require_once $path;
         return ob_get_clean();
     }
-
     exit();
 }
 
@@ -27,7 +27,6 @@ function render_galery($id_galery)
 
         $simg = $images;
         $count = count($simg);
-
 
         $rows = [];
         $imgs = true;
@@ -62,7 +61,6 @@ function render_galery($id_galery)
             }
         }
 
-
         foreach ($rows as $row) {
             $width = [];
             $height = [];
@@ -90,18 +88,11 @@ function render_galery($id_galery)
             $row_height[] = $rh;
         }
 
-
         ///
         $comments_str = tmpl(['comments' => $comments], 'galery_com_single');
         $comments_tmp = tmpl(['comments_str' => $comments_str, 'id_galery' => $id_galery, 'act' => 'gal'], 'galery_com');
 
-        return tmpl([
-            'comments' => $comments_tmp,
-            'row_height' => $row_height,
-            'width_img' => $width_img,
-            'rows' => $rows,
-            'id_galery' => $id_galery
-        ], 'galery');
+        return tmpl(['comments' => $comments_tmp, 'row_height' => $row_height, 'width_img' => $width_img, 'rows' => $rows, 'id_galery' => $id_galery], 'galery');
     }
 }
 
@@ -137,9 +128,36 @@ function render_image($id_image, $id_galery)
         $comments_str = tmpl(['comments' => $comments], 'galery_com_single');
         $arr['comments'] = tmpl(['comments_str' => $comments_str, 'id_galery' => $id_galery, 'id_image' => $id_image, 'act' => 'image'], 'galery_com');
 
-        return tmpl([
-            'arr' => $arr,
-        ], 'galery_image');
+        return tmpl(['arr' => $arr,], 'galery_image');
+    }
+}
 
+function send_comments($post)
+{
+
+    $arr = [];
+
+    foreach ($post as $key => $item) {
+        $var = strip_tags($item);
+
+        if ($key == 'name_author') {
+            if (empty($var)) return false;
+        }
+
+        if ($key == 'text_comments') {
+            if (empty($var)) return false;
+        }
+
+        $arr[$key] = $var;
+
+    }
+
+    if (!empty($arr)) {
+        $result = add_comment($arr);
+        if (!$result) {
+            return false;
+        }
+
+        return $result;
     }
 }

@@ -7,5 +7,5 @@
         </div>
     <?php endforeach; ?>
 <?php else : ?>
-    <p>Комментов нет</p>
+    <p class="not_com">Комментов нет</p>
 <?php endif; ?>
