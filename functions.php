@@ -1,6 +1,6 @@
 <?php
 
-function get_statti($cat = false): array
+function get_statti($cat = false)
 {
     global $db;
     $sql = "SELECT id,title,date,img_src,discription,id_galery FROM statti";
@@ -51,7 +51,7 @@ function get_text($id)
     return $row;
 }
 
-function get_cat(): array
+function get_cat()
 {
 
     global $db;
@@ -61,6 +61,7 @@ function get_cat(): array
     if (!$result) {
         exit(mysqli_error($db));
     }
+
     if (mysqli_num_rows($result) === 0) {
         exit('Статей нет');
     }

@@ -3,9 +3,15 @@ require_once "g_config.php";
 require_once G_HELPER . "galery_helper.php";
 
 if (@$_POST['act']) {
-    //$comments = send_comments($_POST);
-    //print_r($_POST);
-    //exit();
+    $comments = [];
+    $comments = send_comments($_POST);
+    if ($comments) {
+        ob_start();
+        require_once G_PATH . "/theme/galery_com_single.tpl.php";
+        echo ob_get_clean();
+    }
+
+    exit();
 }
 
 if (@$_POST['id_image'] && $_POST['id_galery']) {

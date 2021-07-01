@@ -70,7 +70,6 @@ img {
 }
 
 .galery_img p {
-
     text-align: left;
 }
 
@@ -89,30 +88,24 @@ img {
 }
 
 .galery_back_img, .galery_close_img {
-
     cursor: pointer;
     height: 17px;
     opacity: 0.4;
     top: 25px;
     width: 17px;
     display: block;
-
-    opacity: 0.4;
     position: absolute;
     z-index: 110;
-
 }
 
 .galery_back_img {
     left: 20px;
-    background: url("images/control.png") no-repeat;
-    background-position: 0 0;
+    background: url("images/control.png") no-repeat 0 0;
 }
 
 .galery_close_img {
     right: 20px;
-    background: url("images/control.png") no-repeat;
-    background-position: 0 -19px;
+    background: url("images/control.png") no-repeat 0 -19px;
 }
 
 .galery_img_comments_wrap {
@@ -137,7 +130,6 @@ img {
 .galery_com_single {
     border-bottom: 1px solid #f0f0f0;
 }
-
 
 .galery_wrap label {
     margin-top: 5px;

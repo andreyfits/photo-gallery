@@ -1,7 +1,7 @@
 function showImages(idImg, idGalery) {
 
     $(".galery_view_bg, .galery_view_img").css({'display': 'block'});
-
+    $('body').css({'overflow': 'hidden'});
 
     $.ajax({
         url: path + 'galery.php',
@@ -22,12 +22,11 @@ $(document).ready(function () {
     $(".galery_view_img").on('click', '.galery_close_img', function () {
         $(".galery_view_img").empty();
         $(".galery_view_bg, .galery_view_img").css({'display': 'none'});
-        $("body").css({'overflow': auto});
-
+        $("body").css({'overflow': 'auto'});
     });
 
 
-    $(".galery_wrap").on('click', ".galery_reply", function () {
+    $(".galery_wrap").on('click', '.galery_reply', function () {
         var h = $(this).parents('.galery_com_single');
 
         var form = h.parent().find('form');
@@ -52,7 +51,10 @@ $(document).ready(function () {
             data: mydata,
             type: 'POST',
             success: function (html) {
-
+                if (html) {
+                    r.parent('div').prepend(html);
+                    r.parent('div').find('.not_com').html('');
+                }
             }
         });
     });

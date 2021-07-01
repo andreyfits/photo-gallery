@@ -1,7 +1,5 @@
 <?php if ($comments_str) : ?>
     <?php echo $comments_str; ?>
-<?php else : ?>
-    <p class="not_com">Комментов нет</p>
 <?php endif; ?>
 <p class="galery_com_new">Новый комментарий</p>
 <form>
