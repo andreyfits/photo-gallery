@@ -16,6 +16,39 @@ function showImages(idImg, idGalery) {
     });
 }
 
+function get_allcom(idGalery, idImg, obj, act, limit) {
+    var offs = obj.attr('offs').split('/');
+
+    if (parseInt(offs[1]) > parseInt(offs[0])) {
+        if (act == 'image') {
+            idGalery = 0;
+        }
+        if (act == 'gal') {
+            idImg = 0;
+        }
+
+        $.ajax({
+
+            url: path + 'galery.php',
+            data: 'id_image=' + idImg + '&id_galery=' + idGalery + "&allcom=1&number=" + offs[1],
+            type: 'POST',
+            success: function (html) {
+                obj.next().append(html);
+                obj.text("Скрыть");
+                obj.attr("offs", offs[1] + "/" + offs[1])
+            }
+
+        });
+    } else {
+        if (limit) {
+            var com = obj.next().children().slice(0, limit);
+            obj.next().empty().html(com);
+            obj.text("Показать все " + offs[1] + " комментариев");
+            obj.attr("offs", limit + "/" + offs[1]);
+        }
+    }
+}
+
 
 $(document).ready(function () {
 
@@ -26,10 +59,10 @@ $(document).ready(function () {
     });
 
 
-    $(".galery_wrap").on('click', '.galery_reply', function () {
+    $(".galery_wrap").on('click', ".galery_reply", function () {
         var h = $(this).parents('.galery_com_single');
 
-        var form = h.parent().find('form');
+        var form = h.parent().parent().find('form');
 
         var name = h.children('.galery_com_name').text() + ", ";
 

@@ -21,6 +21,8 @@ function render_galery($id_galery)
 {
     if ($id_galery) {
         $images = get_images($id_galery);
+
+        $count_comm = get_count_comments(false, $id_galery);
         $comments = get_comments($id_galery);
 
         ////
@@ -61,6 +63,7 @@ function render_galery($id_galery)
             }
         }
 
+
         foreach ($rows as $row) {
             $width = [];
             $height = [];
@@ -88,11 +91,34 @@ function render_galery($id_galery)
             $row_height[] = $rh;
         }
 
-        ///
-        $comments_str = tmpl(['comments' => $comments], 'galery_com_single');
-        $comments_tmp = tmpl(['comments_str' => $comments_str, 'id_galery' => $id_galery, 'act' => 'gal'], 'galery_com');
 
-        return tmpl(['comments' => $comments_tmp, 'row_height' => $row_height, 'width_img' => $width_img, 'rows' => $rows, 'id_galery' => $id_galery], 'galery');
+        ///
+        $comments_str = tmpl(
+            [
+                'comments' => $comments
+            ],
+            'galery_com_single'
+        );
+        $comments_tmp = tmpl(
+            [
+                'comments_str' => $comments_str,
+                'id_galery' => $id_galery,
+                'act' => 'gal',
+                'count_comm' => $count_comm[0]['count']
+            ],
+            'galery_com'
+        );
+
+        return tmpl(
+            [
+                'comments' => $comments_tmp,
+                'row_height' => $row_height,
+                'width_img' => $width_img,
+                'rows' => $rows,
+                'id_galery' => $id_galery
+            ],
+            'galery'
+        );
     }
 }
 
@@ -123,12 +149,34 @@ function render_image($id_image, $id_galery)
             }
         }
 
+        $count_comm = get_count_comments($id_image);
         $comments = get_comments(false, $id_image);
 
-        $comments_str = tmpl(['comments' => $comments], 'galery_com_single');
-        $arr['comments'] = tmpl(['comments_str' => $comments_str, 'id_galery' => $id_galery, 'id_image' => $id_image, 'act' => 'image'], 'galery_com');
+        $comments_str = tmpl(
+            [
+                'comments' => $comments
+            ],
+            'galery_com_single'
+        );
 
-        return tmpl(['arr' => $arr,], 'galery_image');
+        $arr['comments'] = tmpl(
+            [
+                'comments_str' => $comments_str,
+                'id_galery' => $id_galery,
+                'id_image' => $id_image,
+                'act' => 'image',
+                'count_comm' => $count_comm[0]['count']
+            ],
+            'galery_com'
+        );
+
+        return tmpl(
+            [
+                'arr' => $arr,
+            ],
+            'galery_image'
+        );
+
     }
 }
 
@@ -140,12 +188,12 @@ function send_comments($post)
     foreach ($post as $key => $item) {
         $var = strip_tags($item);
 
-        if ($key == 'name_author') {
-            if (empty($var)) return false;
+        if (($key == 'name_author') && empty($var)) {
+            return false;
         }
 
-        if ($key == 'text_comments') {
-            if (empty($var)) return false;
+        if (($key == 'text_comments') && empty($var)) {
+            return false;
         }
 
         $arr[$key] = $var;

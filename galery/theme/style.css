@@ -154,3 +154,9 @@ img {
 .galery_image_text {
     margin: 20px 0 0 0;
 }
+
+.next_comm {
+    text-align: right;
+    color: gray;
+    cursor: pointer;
+}

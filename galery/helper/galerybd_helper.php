@@ -26,6 +26,7 @@ function get_result($result, $db)
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
+
 function get_images($id)
 {
     global $db;
@@ -34,18 +35,46 @@ function get_images($id)
         $db = connect_db();
     }
 
-    $sql = "SELECT id_images,path_images FROM images WHERE id_galery = '$id'";
+    $sql = "SELECT id_images,path_images 
+			FROM images
+			WHERE id_galery = '$id'";
 
     $result = mysqli_query($db, $sql);
 
     return get_result($result, $db);
 }
 
-function get_comments($id_galery = false, $id_images = false, $limit = false)
+function get_count_comments($im = false, $gal = false)
 {
     global $db;
 
-    $sql = "SELECT id_comments,text_comments, name_author, email_author,time,parent_id FROM comments ";
+    if (!$db instanceof mysqli) {
+        $db = connect_db();
+    }
+
+    $sql = "SELECT COUNT(*) as count FROM comments";
+
+    if ($im) {
+        $sql .= " WHERE id_images = " . $im;
+    } elseif ($gal) {
+        $sql .= " WHERE id_galery = " . $gal;
+    }
+
+    $result = mysqli_query($db, $sql);
+
+    return get_result($result, $db);
+}
+
+function get_comments($id_galery = false, $id_images = false, $number = false)
+{
+    global $db;
+
+    if (!$db instanceof mysqli) {
+        $db = connect_db();
+    }
+
+    $sql = "SELECT id_comments,text_comments, name_author, email_author,time,parent_id
+			FROM comments ";
 
     if ($id_galery) {
         $sql .= " WHERE id_galery ='$id_galery'";
@@ -53,11 +82,13 @@ function get_comments($id_galery = false, $id_images = false, $limit = false)
         $sql .= " WHERE id_images ='$id_images'";
     }
 
-    if ($limit) {
-        $sql .= " LIMIT " . $limit;
-    }
-
     $sql .= " ORDER BY id_comments DESC";
+
+    if (!$number) {
+        $sql .= " LIMIT 0," . G_LIMIT_COM;
+    } else {
+        $sql .= " LIMIT " . G_LIMIT_COM . "," . ($number - G_LIMIT_COM);
+    }
 
     $result = mysqli_query($db, $sql);
 
@@ -73,7 +104,9 @@ function get_image($id_image, $id_galery)
         $db = connect_db();
     }
 
-    $sql = "SELECT id_images,path_images,text_images FROM images WHERE id_galery='$id_galery'";
+    $sql = "SELECT id_images,path_images,text_images 
+			FROM images
+			WHERE id_galery='$id_galery'";
 
     $result = mysqli_query($db, $sql);
 
@@ -102,11 +135,25 @@ function add_comment($post)
     }
 
     if ($post['act'] == 'image') {
-        $sql = "INSERT INTO comments (id_images,text_comments,email_author,name_author,parent_id,time)
-                VALUES ('" . $post['id_image'] . "','" . $post['text_comments'] . "', '" . $post['email_author'] . "','" . $post['name_author'] . "','" . $parent_id . "','" . time() . "')";
+        $sql = "INSERT INTO comments (id_images,text_comments,name_author,email_author,parent_id,time) 
+                VALUES (
+                        '" . $post['id_image'] . "',
+                        '" . $post['text_comments'] . "',
+                        '" . $post['name_author'] . "',
+                        '" . @$post['email_author'] . "',
+                        '" . $parent_id . "',
+                        '" . time() . "'
+                )";
     } else if ($post['act'] == 'gal') {
-        $sql = "INSERT INTO comments (id_galery,text_comments,email_author,name_author,parent_id,time)
-                VALUES ('" . $post['id_galery'] . "','" . $post['text_comments'] . "', '" . $post['email_author'] . "', '" . $post['name_author'] . "','" . $parent_id . "','" . time() . "')";
+        $sql = "INSERT INTO comments (id_galery,text_comments,name_author,email_author,parent_id,time) 
+                VALUES (
+                        '" . $post['id_galery'] . "',
+                        '" . $post['text_comments'] . "',
+                        '" . $post['name_author'] . "',
+                        '" . @$post['email_author'] . "',
+                        '" . $parent_id . "',
+                        '" . time() . "'
+                )";
     }
 
     $result = mysqli_query($db, $sql);
@@ -117,9 +164,12 @@ function add_comment($post)
 
     $id_last_com = mysqli_insert_id($db);
 
-    $sql2 = "SELECT text_comments,name_author, parent_id, time FROM comments WHERE id_comments='$id_last_com'";
+    $sql2 = "SELECT text_comments,name_author, parent_id, time
+             FROM comments
+			 WHERE id_comments='$id_last_com'";
 
     $result2 = mysqli_query($db, $sql2);
 
     return get_result($result2, $db);
+
 }

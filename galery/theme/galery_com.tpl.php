@@ -1,5 +1,12 @@
 <?php if ($comments_str) : ?>
-    <?php echo $comments_str; ?>
+
+    <?php if (($count_comm - G_LIMIT_COM) > 0) : ?>
+        <p class="next_comm" offs="<?php echo G_LIMIT_COM ?>/<?php echo $count_comm ?>" onclick="get_allcom(<?php echo $id_galery ?: 0; ?>,<?php echo @$id_image ?: 0; ?>,$(this),'<?php echo $act; ?>',<?php echo G_LIMIT_COM ?>)">Показать все <?php echo $count_comm ?> комментариев</p>
+    <?php endif; ?>
+
+    <div class="list-comments">
+        <?php echo $comments_str; ?>
+    </div>
 <?php endif; ?>
 <p class="galery_com_new">Новый комментарий</p>
 <form>

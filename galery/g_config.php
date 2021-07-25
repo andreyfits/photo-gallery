@@ -17,3 +17,5 @@ const GDB_HOST = 'db';
 const GDB_USER = 'super_user';
 const GDB_PASSWORD = 'default_user_password';
 const GDB_NAME = 'photogallery';
+
+const G_LIMIT_COM = 5;

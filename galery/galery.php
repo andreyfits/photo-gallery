@@ -2,14 +2,32 @@
 require_once "g_config.php";
 require_once G_HELPER . "galery_helper.php";
 
+if (@$_POST['allcom']) {
+
+    $comments = [];
+    $comments = get_comments((int)$_POST['id_galery'], (int)$_POST['id_image'], (int)$_POST['number']);
+
+    if ($comments) {
+        ob_start();
+        require G_PATH . "/theme/galery_com_single.tpl.php";
+        echo ob_get_clean();
+    }
+
+    exit();
+}
+
+
 if (@$_POST['act']) {
+
     $comments = [];
     $comments = send_comments($_POST);
+
     if ($comments) {
         ob_start();
         require_once G_PATH . "/theme/galery_com_single.tpl.php";
         echo ob_get_clean();
     }
+
 
     exit();
 }
